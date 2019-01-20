@@ -30,6 +30,7 @@ sudo apt install git
 cd $APPDIR
 git clone $GITRES
 cd $DJANGODIR
+echo "\n" >> requirements.txt
 echo "psycopg2" >> requirements.txt
 echo "gunicorn" >> requirements.txt
 cd /test/
@@ -44,7 +45,7 @@ sudo su - $USER   #创建虚拟环境并安装依赖
 
 cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
-sudo chown robotdb $APPRIR/venv/bin/gunicorn_start
+sudo chown robotdb $APPDIR/venv/bin/gunicorn_start
 
 cp robotdb.conf /etc/supervisor/conf.d/$APPNAME.conf
 
