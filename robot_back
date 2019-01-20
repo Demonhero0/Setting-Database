@@ -1,11 +1,11 @@
 #!/bin/bash
 DJANGODIR=/webapps/robotdb/robot_backend
 APPDIR=/webapps/robotdb
-GITRES=https://gitlab.com/AshWorkshop/robot_backend.git
+GITRES=   #git仓库
 APPNAME=robotdb
 USER=robotdb
-RMSETTING=$DJANGODIR/config/settings/base.py    #setting地址
-SETTINGDIR=$DJANGODIR/config/settings/          #setting地址
+RMSETTING=$DJANGODIR/config/settings/base.py    #django的setting地址
+SETTINGDIR=$DJANGODIR/config/settings/          #django的setting地址
 
 sudo apt update
 sudo apt upgrade
