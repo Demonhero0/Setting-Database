@@ -43,7 +43,7 @@ sudo su - $USER   #创建虚拟环境并安装依赖
 
 cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
-sudo chown robotdb $APPDIR/venv/bin/gunicorn_start
+sudo chown $USER $APPDIR/venv/bin/gunicorn_start
 
 cp base_supervisor.conf /etc/supervisor/conf.d/$APPNAME.conf
 
