@@ -18,7 +18,7 @@ sudo apt install supervisor
 sudo apt install nginx
 pip install virtualenv -i https://pypi.tuna.tsinghua.edu.cn/simple/   #安装函数库
 
-sudo su - postgres    #手动创建一个robot为用户，name为robotdb的数据库
+sudo su - postgres    #手动创建一个robot为用户，密码为12345678，以robot为owner创建一个name为robotdb的数据库
 
 sudo groupadd --system webapps
 sudo useradd --system --gid webapps --shell /bin/bash --home $APPDIR $USER   #创建用户
@@ -30,7 +30,7 @@ sudo apt install git
 cd $APPDIR
 git clone $GITRES
 cd $DJANGODIR
-echo "\n" >> requirements.txt
+echo "" >> requirements.txt
 echo "psycopg2" >> requirements.txt
 echo "gunicorn" >> requirements.txt
 cd /test/
