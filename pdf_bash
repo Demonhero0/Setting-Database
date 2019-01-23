@@ -1,11 +1,11 @@
 #!/bin/bash
-DJANGODIR=/webapps/robotdb/robot_backend
-APPDIR=/webapps/robotdb
-GITRES=   #git仓库
-APPNAME=robotdb
-USER=robotdb
-RMSETTING=$DJANGODIR/config/settings/base.py    #django的setting地址
-SETTINGDIR=$DJANGODIR/config/settings/          #django的setting地址
+DJANGODIR=/webapps/pdf/Fastash
+APPDIR=/webapps/pdf
+GITRES=https://github.com/AshWorkshop/Fastash.git   #git仓库
+APPNAME=pdf
+USER=pdf
+RMSETTING=$DJANGODIR/config/settings.py    #django的setting地址
+NEWSETTING=$DJANGODIR/config/settings.py          #django的setting地址
 
 sudo apt update
 sudo apt upgrade
@@ -17,8 +17,6 @@ sudo apt install python-dev
 sudo apt install supervisor
 sudo apt install nginx
 pip install virtualenv -i https://pypi.tuna.tsinghua.edu.cn/simple/   #安装函数库
-
-sudo su - postgres    #手动创建一个robot为用户，密码为12345678，以robot为owner创建一个name为robotdb的数据库
 
 sudo groupadd --system webapps
 sudo useradd --system --gid webapps --shell /bin/bash --home $APPDIR $USER   #创建用户
@@ -36,7 +34,7 @@ echo "gunicorn" >> requirements.txt
 cd /test/
 
 rm $RMSETTING
-cp base.py $SETTINGDIR
+cp base.py $NEWSETTING
 
 sudo chown -R $USER:users $APPDIR
 sudo chmod -R g+w $APPDIR
@@ -47,7 +45,7 @@ cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
 sudo chown robotdb $APPDIR/venv/bin/gunicorn_start
 
-cp robotdb.conf /etc/supervisor/conf.d/$APPNAME.conf
+cp base_supervisor.conf /etc/supervisor/conf.d/$APPNAME.conf
 
 mkdir -p $APPDIR/logs/
 touch $APPDIR/logs/gunicorn_supervisor.log
@@ -55,6 +53,6 @@ sudo supervisorctl reread
 sudo supervisorctl update
 
 sudo service nginx start
-cp robotdb /etc/nginx/sites-available/$APPNAME
+cp base_nginx /etc/nginx/sites-available/$APPNAME
 sudo ln -s /etc/nginx/sites-available/$APPNAME /etc/nginx/sites-enabled/$APPNAME
 sudo service nginx restart
