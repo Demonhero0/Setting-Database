@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "0.0.0.0"            #修改为需要部署的服务器的id
+    "39.108.160.216"            #修改为需要部署的服务器的id
 ]
 
 

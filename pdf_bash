@@ -29,9 +29,8 @@ cd $APPDIR
 git clone $GITRES
 cd $DJANGODIR
 echo "" >> requirements.txt
-echo "psycopg2" >> requirements.txt
 echo "gunicorn" >> requirements.txt
-cd /test/
+cd /Setting-Database
 
 rm $RMSETTING
 cp base.py $NEWSETTING
