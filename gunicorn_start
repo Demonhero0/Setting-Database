@@ -1,9 +1,11 @@
 #!/bin/bash
 
-NAME="pdf_app"                                  # Name of the application
-DJANGODIR=/webapps/pdf/Fastash             # Django project directory
-SOCKFILE=/webapps/pdf/run/gunicorn.sock  # we will communicte using this unix socket
-USER=pdf                                       # the user to run as
+APPNAME=pdf1
+
+NAME="$APPNAME"                                 # Name of the application
+DJANGODIR=/webapps/$APPNAME/Fastash             # Django project directory
+SOCKFILE=/webapps/$APPNAME/run/gunicorn.sock  # we will communicte using this unix socket
+USER=$APPNAME                                     # the user to run as
 GROUP=webapps                                     # the group to run as
 NUM_WORKERS=3                                     # how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE=config.settings           # which settings file should Django use

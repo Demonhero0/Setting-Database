@@ -1,17 +1,16 @@
 #!/bin/bash
-DJANGODIR=/webapps/pdf/Fastash
-APPDIR=/webapps/pdf
+
+APPNAME=pdf1
+USER=$APPNAME
+DJANGODIR=/webapps/$APPNAME/Fastash
+APPDIR=/webapps/$APPNAME
 GITRES=https://github.com/AshWorkshop/Fastash.git   #git仓库
-APPNAME=pdf
-USER=pdf
 RMSETTING=$DJANGODIR/config/settings.py    #django的setting地址
 NEWSETTING=$DJANGODIR/config/settings.py          #django的setting地址
 
 sudo apt update
 sudo apt upgrade
-sudo apt install emacs
 pip install --upgrade pip
-sudo apt install postgresql postgresql-contrib
 sudo apt install libpq-dev python-dev
 sudo apt install python-dev
 sudo apt install supervisor
@@ -38,7 +37,7 @@ cp base.py $NEWSETTING
 sudo chown -R $USER:users $APPDIR
 sudo chmod -R g+w $APPDIR
 
-sudo su - $USER   #创建虚拟环境并安装依赖
+su $USER -s /bin/bash bashForVirtualenv   #创建虚拟环境并安装依赖
 
 cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
@@ -55,3 +54,5 @@ sudo service nginx start
 cp base_nginx /etc/nginx/sites-available/$APPNAME
 sudo ln -s /etc/nginx/sites-available/$APPNAME /etc/nginx/sites-enabled/$APPNAME
 sudo service nginx restart
+
+supervisorctl restart $APPNAME

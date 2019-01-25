@@ -3,26 +3,26 @@ upstream hello_app_server {
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
 
-  server unix:/webapps/pdf/run/gunicorn.sock fail_timeout=0;
+  server unix:/webapps/pdf1/run/gunicorn.sock fail_timeout=0;
 }
 
 server {
 
     listen   80;
-    server_name 39.108.160.216;
+    server_name 39.108.160.216; #修改为需要部署的域名
     server_name localhost;
 
     client_max_body_size 4G;
 
-    access_log /webapps/pdf/logs/nginx-access.log;
-    error_log /webapps/pdf/logs/nginx-error.log;
+    access_log /webapps/pdf1/logs/nginx-access.log;
+    error_log /webapps/pdf1/logs/nginx-error.log;
 
     location /static/ {
-        alias   /webapps/pdf/Fastash/project/main/static/;
+        alias   /webapps/pdf1/Fastash/project/main/static/;
     }
 
     location /media/ {
-        alias   /webapps/pdf/Fastash/project/media/;
+        alias   /webapps/pdf1/Fastash/project/media/;
     }
 
     location / {
@@ -60,6 +60,6 @@ server {
     # Error pages
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root /webapps//pdf/Fastash/project/main/static/;
+        root /webapps/pdf1/Fastash/project/main/static/;
     }
 }

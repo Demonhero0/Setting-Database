@@ -1,0 +1,8 @@
+#!/bin/bash
+APPNAME=pdf1
+APPDIR=/webapps/$APPNAME
+DJANGODIR=/webapps/$APPNAME/Fastash
+
+cd $APPDIR
+virtualenv venv -p python3
+venv/bin/pip install -Ur $DJANGODIR/requirements.txt
