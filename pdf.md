@@ -3,7 +3,7 @@
 #### 操作指南（假设代号为pdf1）
 #### 注意：脚本运行过程中会有一些选项，都选Y即可
 ##### 修改配置文件
->1. 修改pdf_bash的APPNAME(3)  
+>1. 修改pdf_bash的APPNAME(3)为新代号  
 2. 增加需要部署的域名到base.py的ALLOWED_HOSTS(29)  
 3. 修改bash_supervisor.conf(1、2、3、4)的pdf1改为新代号  
 4. 修改gunicorn_start的APPNAME为新代号  
@@ -17,5 +17,5 @@
 
 
 ##### 修改完配置文件后
-> 1. 将文件夹发送到服务器的根目录(scp -r 文件夹地址 root@(服务器ip))  
+> 1. 将文件夹发送到服务器的根目录(scp -r 文件夹地址 root@(服务器ip) )  
 2. bash Setting-Pdf/pdf_bash #运行脚本

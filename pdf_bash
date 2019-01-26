@@ -4,7 +4,6 @@ APPNAME=pdf1
 USER=$APPNAME
 DJANGODIR=/webapps/$APPNAME/Fastash
 APPDIR=/webapps/$APPNAME
-GITRES=https://github.com/AshWorkshop/Fastash.git   #git仓库
 RMSETTING=$DJANGODIR/config/settings.py    #django的setting地址
 NEWSETTING=$DJANGODIR/config/settings.py          #django的setting地址
 
@@ -23,13 +22,12 @@ sudo useradd --system --gid webapps --shell /bin/bash --home $APPDIR $USER   #�
 sudo mkdir -p $APPDIR
 sudo chown $USER $APPDIR   #授权
 
-sudo apt install git
-cd $APPDIR
-git clone $GITRES
+cd /Setting-Pdf
+cp -r Fastash $APPDIR
 cd $DJANGODIR
 echo "" >> requirements.txt
 echo "gunicorn" >> requirements.txt
-cd /Setting-Database
+cd /Setting-Pdf
 
 rm $RMSETTING
 cp base.py $NEWSETTING
