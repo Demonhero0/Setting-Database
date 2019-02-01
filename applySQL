@@ -1,0 +1,4 @@
+#!/bin/bash
+APPNAME=robotdb
+createuser --interactive -P
+createdb --owner robot $APPNAME

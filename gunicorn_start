@@ -1,9 +1,9 @@
 #!/bin/bash
-
-NAME="robotdb_app"                                  # Name of the application
+APPNAME=robotdb
+NAME="$APPNAME"                                  # Name of the application
 DJANGODIR=/webapps/robotdb/robot_backend             # Django project directory
 SOCKFILE=/webapps/robotdb/run/gunicorn.sock  # we will communicte using this unix socket
-USER=robotdb                                       # the user to run as
+USER=$APPNAME                                      # the user to run as
 GROUP=webapps                                     # the group to run as
 NUM_WORKERS=3                                     # how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE=config.settings.base             # which settings file should Django use

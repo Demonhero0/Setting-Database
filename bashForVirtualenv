@@ -1,0 +1,13 @@
+#!/bin/bash
+APPNAME=robotdb
+APPDIR=/webapps/$APPNAME
+DJANGODIR=/webapps/$APPNAME/robot_backend
+
+cd $APPDIR
+virtualenv venv -p python3
+source venv/bin/activate
+pip install -Ur robot_backend/requirements.txt
+python robot_backend/manage.py mekemigrations
+python robot_backend/manage.py migrate
+python robot_backend/manage.py crontab add    #启动定时清理数据库功能
+python robot_backend/manage.py createsuperuser #创建超级用户

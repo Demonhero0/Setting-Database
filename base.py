@@ -27,8 +27,7 @@ SECRET_KEY = 'just_for_test'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "localhost",
-    "0.0.0.0"            #修改为需要部署的服务器的id
+    "example.com"            #修改为需要部署的服务器的id
 ]
 
 
@@ -46,6 +45,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
+    'django_crontab',
 )
 
 LOCAL_APPS = (
@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'robotdb',
-        'USER': 'robot',
-        'PASSWORD': '12345678',
+        'NAME': 'robotdb',      #数据库名字
+        'USER': 'robot',        #数据库用户
+        'PASSWORD': '12345678',     #数据库用户的密码
         'HOST': 'localhost',
         'PORT': '',                      # Set to empty string for default.
     }
@@ -165,3 +165,7 @@ MEDIA_ROOT = str(APPS_DIR('media'))
 
 REST_FRAMEWORK = {
 }
+
+CRONJOBS = [
+    ('* * 1 * *', 'project.robot.utils.CleanDbOnTime')
+]
