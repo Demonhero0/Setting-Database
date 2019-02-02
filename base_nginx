@@ -1,4 +1,4 @@
-upstream hello_app_server {
+upstream hello_pdf1_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
@@ -9,8 +9,7 @@ upstream hello_app_server {
 server {
 
     listen   80;
-    server_name 39.108.160.216; #修改为需要部署的域名
-    server_name localhost;
+    server_name example.com; #修改为需要部署的域名
 
     client_max_body_size 4G;
 
@@ -52,7 +51,7 @@ server {
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
         if (!-f $request_filename) {
-            proxy_pass http://hello_app_server;
+            proxy_pass http://hello_pdf1_server;
             break;
         }
     }

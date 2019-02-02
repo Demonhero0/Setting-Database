@@ -1,11 +1,23 @@
 #!/bin/bash
 
+DIRNAME=Setting-Pdf
 APPNAME=pdf1
+SERVICE=example.com
+
 USER=$APPNAME
 DJANGODIR=/webapps/$APPNAME/Fastash
 APPDIR=/webapps/$APPNAME
 RMSETTING=$DJANGODIR/config/settings.py    #django的setting地址
 NEWSETTING=$DJANGODIR/config/settings.py          #django的setting地址
+GITRES=   #git仓库
+
+cd /$DIRNAME
+sed -i 's/pdf1/'$APPNAME'/g' base_supervisor.conf
+sed -i 's/pdf1/'$APPNAME'/g' gunicorn_start
+sed -i 's/pdf1/'$APPNAME'/g' base_nginx
+sed -i 's/pdf1/'$APPNAME'/g' bashForVirtualenv
+sed -i 's/example.com/'$SERVICE'/g' base.py
+sed -i 's/example.com/'$SERVICE'/g' base_nginx
 
 sudo apt update
 sudo apt upgrade
@@ -22,12 +34,12 @@ sudo useradd --system --gid webapps --shell /bin/bash --home $APPDIR $USER   #�
 sudo mkdir -p $APPDIR
 sudo chown $USER $APPDIR   #授权
 
-cd /Setting-Pdf
+cd $DIRNAME
 cp -r Fastash $APPDIR
 cd $DJANGODIR
 echo "" >> requirements.txt
 echo "gunicorn" >> requirements.txt
-cd /Setting-Pdf
+cd $DIRNAME
 
 rm $RMSETTING
 cp base.py $NEWSETTING
@@ -41,7 +53,7 @@ cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
 sudo chown $USER $APPDIR/venv/bin/gunicorn_start
 
-cp base_supervisor.conf /etc/supervisor/conf.d/$APPNAME.conf
+cp base_supervisor.conf /etc/supervisor/conf.d/$APPNAME.conf    #配置supervisor
 
 mkdir -p $APPDIR/logs/
 touch $APPDIR/logs/gunicorn_supervisor.log
@@ -50,7 +62,7 @@ sudo supervisorctl update
 
 sudo service nginx start
 cp base_nginx /etc/nginx/sites-available/$APPNAME
-sudo ln -s /etc/nginx/sites-available/$APPNAME /etc/nginx/sites-enabled/$APPNAME
+sudo ln -s /etc/nginx/sites-available/$APPNAME /etc/nginx/sites-enabled/$APPNAME    #配置nginx
 sudo service nginx restart
 
 supervisorctl restart $APPNAME
