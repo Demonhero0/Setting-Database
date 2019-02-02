@@ -11,7 +11,7 @@ sed -i 's/robotdb/'$APPNAME'/g' base_nginx
 sed -i 's/robotdb/'$APPNAME'/g' bashForVirtualenv
 sed -i 's/example.com/'$SERVICE'/g' base.py
 sed -i 's/example.com/'$SERVICE'/g' base_nginx
-sed -i 's/robotdb/'$APPNAME'/g' applySQl
+sed -i 's/robotdb/'$APPNAME'/g' applySQL
 
 USER=$APPNAME
 DJANGODIR=/webapps/$APPNAME/robot_backend
@@ -23,7 +23,6 @@ SETTINGDIR=$DJANGODIR/config/settings/          #django的setting地址
 
 sudo apt update
 sudo apt upgrade
-sudo apt install emacs
 pip install --upgrade pip
 sudo apt install libpq-dev python-dev
 sudo apt install python-dev
@@ -33,7 +32,7 @@ pip install virtualenv -i https://pypi.tuna.tsinghua.edu.cn/simple/   #安装函
 
 cd $DIRNAME
 sudo aptitude install postgresql postgresql-contrib
-su postgres -s /bin/bash applySQl       #申请数据库
+su postgres -s /bin/bash applySQL       #申请数据库
 
 sudo groupadd --system webapps
 sudo useradd --system --gid webapps --shell /bin/bash --home $APPDIR $USER   #创建用户
@@ -60,9 +59,9 @@ su $USER -s /bin/bash bashForVirtualenv #创建虚拟环境并安装依赖
 
 cp gunicorn_start $APPDIR/venv/bin/gunicorn_start
 sudo chmod u+x $APPDIR/venv/bin/gunicorn_start
-sudo chown robotdb $APPDIR/venv/bin/gunicorn_start
+sudo chown $USER $APPDIR/venv/bin/gunicorn_start
 
-cp robotdb.conf /etc/supervisor/conf.d/$APPNAME.conf
+cp base_supervisor.conf /etc/supervisor/conf.d/$APPNAME.conf
 
 mkdir -p $APPDIR/logs/
 touch $APPDIR/logs/gunicorn_supervisor.log
@@ -70,6 +69,6 @@ sudo supervisorctl reread
 sudo supervisorctl update
 
 sudo service nginx start
-cp robotdb /etc/nginx/sites-available/$APPNAME
+cp base_nginx /etc/nginx/sites-available/$APPNAME
 sudo ln -s /etc/nginx/sites-available/$APPNAME /etc/nginx/sites-enabled/$APPNAME
 sudo service nginx restart
